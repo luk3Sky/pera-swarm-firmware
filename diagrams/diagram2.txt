@@ -1,0 +1,51 @@
+@startuml
+class MQTT_Functions{
+beginMQTT()
+mqtt_wait()
+enter_critical()
+exit_critical()
+subscribeDefault()
+mqtt_subscribe()
+mqtt_publish()
+mqtt_onMessageArrived()
+mqtt_handle()
+mqtt_reconnect()
+mqtt_delay()
+}
+class Robot_Handler{
+mqtt_robot_live()
+mqtt_robot_msg()
+}
+class Proximity_Handler{
+#proximity_lock : uint8_t
+#proximity_virt : Proximity
+#proximity_t : Proximity
+proximity_read()
+mqtt_proximity_handle()
+}
+class NeoPixel_Handler{
+mqtt_neopixel_handle()
+}
+class Distance_Handler{
+#dist_lock : uint8_t
+#dist_virt : uint16_t
+mqtt_distance_handle()
+distance_read()
+}
+class Comm_Handler{
+#out_simple()
+#out_direct()
+}
+class Color_Handler{
+#color_lock
+#struct color_virt
+mqtt_color_handle()
+color_read()
+}
+MQTT_Functions o-- Robot_Handler
+MQTT_Functions o-- Proximity_Handler
+MQTT_Functions o-- NeoPixel_Handler
+MQTT_Functions o-- Distance_Handler
+MQTT_Functions o-- Comm_Handler
+MQTT_Functions o-- Color_Handler
+@enduml

@@ -1,0 +1,175 @@
+@startuml
+class Display{
+beginDisplay()
+display_clear()
+display_drawTest()
+dispaly_drawTestChar()
+}
+class RobotGPIO{
+begin()
+readModeButton()
+blinkLED()
+gpioMode()
+gpioWrite()
+gpioRead()
+-write()
+-read()
+-clear()
+-set()
+pullUp()
+pullDown()
+gpioToggle()
+gpioBlink()
+#_readGPIO()
+#_updateGPIO()
+}
+class RobotMemory{
+getRobotId()
+getErrorCorrection()
+begin()
+test()
+setupRobotWithId()
+setRobotId()
+setErrorCorrection()
+getMemoryStatus()
+read()
+write()
+-displayMemoryDetails()
+}
+class SW_Motors{
+-servoRight
+-servoLeft
+-RIGHT_DEFAULT
+-LEFT_DEFAULT
+-attach()
+-detach()
++leftCorrection
++rightCorrection
+begin()
+write()
+stop()
+pause()
+resume()
+test()
+enableEncoders()
+encoderReset()
+encoderAverage()
+getEncoderReading()
+}
+class RobotMotorsDisable
+class RobotMotorsServo
+class RobotMotorsSTD
+SW_Motors <|-- RobotMotorsDisable
+SW_Motors <|-- RobotMotorsServo
+SW_Motors <|-- RobotMotorsSTD
+
+class NeoPixel{
+beginNeoPixel()
+pixelUpdateLED()
+neoPixelTest()
+pixelShowColor()
+pixelColorWave()
+colorWipe()
+pixelOff()
+whiteOverRainbow()
+rainbowFade2White()
+}
+class Color_Sensor{
+begin()
+setIntegrationTime()
+setGain()
+getRawData()
+calculateColorTemperature()
+calculateLux()
+write()
+read()
+enable()
+getColor()
+test_i2c()
+Wire2()
+-disable()
+-generateGammaTable()
+-_initialised
+-_gain
+-_integrationTime
+-gammatable : Byte
+#_i2caddr : uint8_t
+}
+class Compass{
+deviceType()
+sa0State()
+begin()
+init()
+readAcc()
+readMag()
+read()
+heading()
+headingInt()
+getDeviceType()
+enableDefault()
+writeAccReg()
+readAccReg()
+-_device
+-acc_address
+-mag_address
+-lastTime
+-dummy_reg_count
+-translated_regs
+-io_timeout
+-did_timeout
+}
+class Distance_Sensor{
+begin()
+getRawDistance()
+getDistanceFloat()
+getDistanceInt()
+setFilterRate()
+test()
+tof()
+-alpha
+-average
+-rawDistance
+-rawReading
+-lastTime
+}
+Distance_Sensor <|-- Distance_Disabled
+Distance_Sensor <|-- Distance_GP2Y0A21YK0F
+Distance_Sensor <|-- Distance_VL53LX0
+
+class Infrared{
+-pin_rmtRx
+-rmt_send
+-flagRmtRecieve
+-rmtValueReceived
+-rmtValueSend
+-dataTx
+-realTickRx
+-sendBits
+-setupTx()
+-setupRx()
+#encodedValue()
+#decodedValue()
+begin()
+parse()
+sendWaveform()
+sendBit()
+}
+
+class Robot{
+setup()
+beginMemory()
+i2c_scan()
+loop()
+}
+
+Robot o-- Display
+Robot o-- RobotGPIO
+Robot o-- RobotMemory
+Robot o-- SW_Motors
+Robot o-- Color_Sensor
+Robot o-- Compass
+Robot o-- Distance_Sensor
+Robot o-- Infrared
+Robot o-- NeoPixel
+Robot o-- MQTT_Functions
+@enduml
